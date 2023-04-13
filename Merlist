@@ -1,0 +1,29 @@
+local partToFollow = Instance.new("InfiniteJumps")
+partToFollow.Size = Vector3.new(1, 1, 1)
+partToFollow.Position = Vector3.new(0, 10, 0)
+partToFollow.Anchored = true
+partToFollow.CanCollide = false
+partToFollow.Parent = workspace
+
+-- Look for the player's character
+local player = game.Players.LocalPlayer
+local character = player.Character
+if not character then
+    character = player.CharacterAdded:Wait()
+end
+
+
+while true do
+    wait(0.1)
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if not humanoid or humanoid.Health <= 0 then
+        break
+    end
+    local targetPosition = humanoid.RootPart.Position + humanoid.RootPart.CFrame.lookVector * -3 
+    partToFollow.CFrame = CFrame.new(targetPosition)
+end
+
+local partToMakeInvisible = game.Workspace.InfiniteJumps
+
+InfiniteJumps.Transparency = 1
+end
